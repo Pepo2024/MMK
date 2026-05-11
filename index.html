@@ -65,6 +65,7 @@
             transform: translateY(30px);
         }
 
+        /* --- تعديل اللوجو ليكون في المنتصف تماماً --- */
         .logo-container {
             width: 100px;
             height: 100px;
@@ -81,22 +82,27 @@
             animation: pulse 3s infinite;
         }
 
+        .logo-placeholder {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* لضمان ملء الدائرة بالصورة بشكل متناسق */
+            object-position: center; /* لضمان توسيط محتوى الصورة */
+            display: block;
+        }
+
+        /* نص احتياطي في حال عدم وجود صورة */
+        .logo-container span {
+            position: absolute;
+            font-size: 0.7rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            z-index: -1; /* يظهر خلف الصورة إذا وُجدت */
+        }
+
         @keyframes pulse {
             0% { box-shadow: 0 0 10px rgba(0, 255, 204, 0.3); }
             50% { box-shadow: 0 0 30px rgba(0, 255, 204, 0.6); }
             100% { box-shadow: 0 0 10px rgba(0, 255, 204, 0.3); }
-        }
-
-        .logo-placeholder {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .logo-container span {
-            font-size: 0.7rem;
-            color: var(--primary-color);
-            font-weight: bold;
         }
 
         h1 {
@@ -118,8 +124,8 @@
         .social-btn {
             display: flex;
             align-items: center;
-            justify-content: center; /* توسيط المحتوى في المنتصف */
-            gap: 12px; /* مسافة متناسقة بين الأيقونة والنص */
+            justify-content: center;
+            gap: 12px;
             padding: 18px 25px;
             border-radius: 20px;
             text-decoration: none;
@@ -142,42 +148,31 @@
             font-size: 1.5rem;
             width: 25px;
             text-align: center;
-            margin: 0; /* إزالة المارجن لضمان التوسيط المثالي */
         }
 
-        /* الوان الايكونات */
         .whatsapp i { color: #25D366; }
-        .tiktok i { color: #fff; text-shadow: 2px 0px 0px #ff0050, -2px 0px 0px #00f2fe; } /* تأثير التيك توك */
+        .tiktok i { color: #fff; text-shadow: 2px 0px 0px #ff0050, -2px 0px 0px #00f2fe; }
         .instagram i { color: #E1306C; }
         .facebook i { color: #1877F2; }
 
-        /* ======== إعدادات التجاوب (Responsive) للموبايل ======== */
         @media (max-width: 480px) {
             .container {
                 padding: 40px 20px;
                 border-radius: 30px;
             }
-            
             .logo-container {
                 width: 80px;
                 height: 80px;
             }
-
             h1 {
                 font-size: 2rem;
                 margin-bottom: 25px;
             }
-
             .social-btn {
                 padding: 15px 20px;
-                font-size: 1rem; /* تكبير الخط قليلاً ليكون أوضح */
-            }
-
-            .social-btn i {
-                font-size: 1.3rem;
+                font-size: 1rem;
             }
         }
-
     </style>
 </head>
 <body>
@@ -187,23 +182,23 @@
     <div class="main-wrapper">
         <div class="container">
             <div class="logo-container">
-                <img src="your-logo.png" alt="Logo" class="logo-placeholder" onerror="this.style.display='none'">
+                <img src="123.jpg" alt="Logo" class="logo-placeholder" onerror="this.style.opacity='0'">
                 <span id="logo-text">YOUR LOGO</span>
             </div>
             
             <h1>MMK</h1>
 
             <div class="links">
-                <a href="https://wa.me/yourlink" class="social-btn whatsapp">
+                <a href="https://wa.me/201126596339" class="social-btn whatsapp">
                     <i class="fab fa-whatsapp"></i> واتساب الأعمال
                 </a>
-                <a href="https://www.tiktok.com/@mmk72409?_r=1&_t=ZS-96DmgVD5iGz" target="_blank" class="social-btn tiktok">
+                <a href="https://www.tiktok.com/@mmk26183?_r=1&_t=ZS-96H7WS8afCe" target="_blank" class="social-btn tiktok">
                     <i class="fab fa-tiktok"></i> تيك توك
                 </a>
                 <a href="#" class="social-btn instagram">
                     <i class="fab fa-instagram"></i> انستجرام
                 </a>
-                <a href="#" class="social-btn facebook">
+                <a href="https://www.facebook.com/share/1XjVV5u6EM/" class="social-btn facebook">
                     <i class="fab fa-facebook-f"></i> فيسبوك
                 </a>
             </div>
@@ -214,14 +209,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <script>
-        // --- إعدادات Three.js للمجسم 3D الضخم ---
+        // --- Three.js Setup ---
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
 
-        // إضاءة قوية للمجسم ليكون واضحاً جداً
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); 
         scene.add(ambientLight);
 
@@ -235,12 +229,11 @@
 
         let textMesh;
         const loader = new THREE.FontLoader();
-        // تحميل خط احترافي
         loader.load('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/fonts/helvetiker_bold.typeface.json', function (font) {
             const geometry = new THREE.TextGeometry('MMK', {
                 font: font,
-                size: 11,         // تكبير حجم الكلمة
-                height: 2.5,      // عمق المجسم
+                size: 11,
+                height: 2.5,
                 curveSegments: 12,
                 bevelEnabled: true,
                 bevelThickness: 0.5,
@@ -248,23 +241,21 @@
             });
             geometry.center();
 
-            // إعدادات مادة المجسم ليكون مضيئاً وواضحاً من جميع الزوايا
             const material = new THREE.MeshStandardMaterial({
                 color: 0x00ffcc,
                 metalness: 0.2,
                 roughness: 0.1,
                 transparent: true,
                 opacity: 0.75,
-                emissive: 0x004433,  // توهج داخلي لضمان الوضوح التام
+                emissive: 0x004433,
                 emissiveIntensity: 0.6,
-                side: THREE.DoubleSide // لجعل الكلمة مرئية حتى من الخلف أثناء الدوران
+                side: THREE.DoubleSide
             });
 
             textMesh = new THREE.Mesh(geometry, material);
             scene.add(textMesh);
         });
 
-        // نجوم متحركة في الخلفية
         const starsGeo = new THREE.BufferGeometry();
         const starsCount = 1200;
         const posArray = new Float32Array(starsCount * 3);
@@ -274,12 +265,11 @@
         const starField = new THREE.Points(starsGeo, starsMat);
         scene.add(starField);
 
-        // وظيفة لضبط الكاميرا بناءً على حجم الشاشة (لجعل المجسم كبيراً في الموبايل)
         function adjustCamera() {
             if (window.innerWidth < 768) {
-                camera.position.z = 24; // تقريب المجسم جداً في الموبايل ليكون ضخماً
+                camera.position.z = 24;
             } else {
-                camera.position.z = 22; // الحجم المناسب للديسكتوب
+                camera.position.z = 22;
             }
         }
         adjustCamera();
@@ -295,19 +285,17 @@
             const time = Date.now() * 0.001;
             
             if(textMesh) {
-                // دوران مستمر في جميع النواحي لإظهار الكلمة من كل الزوايا
-                textMesh.rotation.y = (time * 0.6) + mX; // دوران كامل مستمر (الدوار)
-                textMesh.rotation.x = Math.sin(time * 0.5) * 0.3 + mY; // حركة ميلان خفيفة للأعلى والأسفل
-                textMesh.rotation.z = Math.sin(time * 0.3) * 0.1; // ميلان جانبي بسيط
-                textMesh.position.y = Math.cos(time * 0.8) * 1.5; // صعود وهبوط
+                textMesh.rotation.y = (time * 0.6) + mX;
+                textMesh.rotation.x = Math.sin(time * 0.5) * 0.3 + mY;
+                textMesh.rotation.z = Math.sin(time * 0.3) * 0.1;
+                textMesh.position.y = Math.cos(time * 0.8) * 1.5;
             }
             
-            starField.rotation.y += 0.001; // دوران النجوم
+            starField.rotation.y += 0.001;
             renderer.render(scene, camera);
         }
         animate();
 
-        // --- أنيميشن الواجهة GSAP ---
         window.onload = () => {
             gsap.to(".container", {
                 opacity: 1,
@@ -326,7 +314,6 @@
             });
         };
 
-        // عند تغيير حجم الشاشة (Responsive Event)
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
